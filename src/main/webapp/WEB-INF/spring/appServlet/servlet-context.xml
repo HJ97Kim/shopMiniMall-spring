@@ -9,7 +9,10 @@
 
 	<mvc:annotation-driven></mvc:annotation-driven>
 	<mvc:default-servlet-handler />
+	
 	<mvc:view-controller path="/" view-name="main" />
+	<mvc:view-controller path="/memberForm" view-name="memberForm"/> <!-- memberForm.jsp -->
+	<mvc:view-controller path="/loginForm" view-name="loginForm"/> <!-- loginForm.jsp -->
 
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/views/"></property>
