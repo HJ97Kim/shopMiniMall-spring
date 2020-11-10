@@ -5,18 +5,21 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
 	<!-- 1.jdbc.properties -->
-	<context:property-placeholder location="classpath:com/config/jdbc.properties"/>
-	
+	<context:property-placeholder
+		location="classpath:com/config/jdbc.properties" />
+
 	<!-- 2.DBCP2 -->
-	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource">
+	<bean id="dataSource"
+		class="org.apache.commons.dbcp2.BasicDataSource">
 		<property name="driverClassName" value="${oracle.jdbc}" />
 		<property name="url" value="${oracle.url}" />
 		<property name="username" value="${oracle.userid}" />
 		<property name="password" value="${oracle.passwd}" />
 	</bean>
-	
+
 	<!-- 3.SqlSessionFactoryBean -->
-	<bean id="sessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+	<bean id="sessionFactory"
+		class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
 		<property name="mapperLocations">
 			<list>
@@ -34,12 +37,14 @@
 			</list>
 		</property>
 	</bean>
-	
+
 	<!-- 4.SqlSessionTemplate : SqlSession기능 실제 db연동에 사용함 -->
-	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
-		<constructor-arg name="sqlSessionFactory" ref="sessionFactory" />
+	<bean id="sqlSessionTemplate"
+		class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg name="sqlSessionFactory"
+			ref="sessionFactory" />
 	</bean>
-	
+
 	<!-- Root Context: defines shared resources visible to all other web components -->
-		
+
 </beans>
