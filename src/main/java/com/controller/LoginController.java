@@ -17,15 +17,17 @@ public class LoginController {
 	
 	@RequestMapping(value = "/login")
 	public String login(@RequestParam Map<String, String> map, Model model, HttpSession session) {
+		String nextPage = "";
 		MemberDTO dto = service.login(map);
 		System.out.println("login=="+dto);
 		if(dto != null) {
 			session.setAttribute("login", dto);
-			return "main";
+			nextPage = "main";
 		} else {
 			model.addAttribute("mesg", "아이디 또는 비번이 잘못되었습니다.");
-			return "loginForm";
+			nextPage = "loginForm";
 		}
+		return nextPage;
 	}
 	
 }
