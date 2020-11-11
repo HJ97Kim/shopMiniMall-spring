@@ -30,4 +30,10 @@ public class LoginController {
 		return nextPage;
 	}
 	
+	@RequestMapping(value = "/loginCheck/logout")
+	public String logout(HttpSession session) {
+		session.invalidate();
+		return "redirect:../"; //.xml에 설정 main.jsp ../ 을 이용하여 /loginCheck 의 상위 주소로 이동하여 주소를 사용함
+	}
+	
 }
