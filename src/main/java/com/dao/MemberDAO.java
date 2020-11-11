@@ -1,5 +1,7 @@
 package com.dao;
 
+import java.util.Map;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -14,5 +16,10 @@ public class MemberDAO {
 	public void memberAdd(MemberDTO m) {
 		int n = template.insert("MemberMapper.memberAdd", m);
 		System.out.println("회원가입 성공 ? (true:1/false:0) = " + n);
+	}
+
+	public MemberDTO login(Map<String, String> map) {
+		MemberDTO dto = template.selectOne("MemberMapper.login", map);
+		return dto;
 	}
 }
