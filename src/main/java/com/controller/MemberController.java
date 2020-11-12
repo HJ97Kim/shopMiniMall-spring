@@ -24,6 +24,7 @@ public class MemberController {
 	
 	@RequestMapping(value = "/loginCheck/myPage")
 	public String myPage(HttpSession session) {
+		//인터셉터에서 로그인 인증 후 페이지 이동
 		MemberDTO dto = (MemberDTO) session.getAttribute("login");
 		String userid = dto.getUserid();
 		dto = service.myPage(userid);

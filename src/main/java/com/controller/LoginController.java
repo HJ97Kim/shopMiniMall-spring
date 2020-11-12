@@ -21,7 +21,7 @@ public class LoginController {
 		MemberDTO dto = service.login(map);
 		System.out.println("login=="+dto);
 		if(dto != null) {
-			session.setAttribute("login", dto);
+			session.setAttribute("login", dto); //로그인 정보 저장
 			nextPage = "main";
 		} else {
 			model.addAttribute("mesg", "아이디 또는 비번이 잘못되었습니다.");
