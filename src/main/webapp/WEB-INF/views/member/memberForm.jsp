@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-<script type="text/javascript" src="js/jquery-3.3.1.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
 <script type="text/javascript">
-    $(document).ready(function(){
+$(document).ready(function(){
     	//form 서브밋
  $("form").on("submit",function(event){		
 	 var userid = $("#userid").val();
@@ -35,34 +35,38 @@
 		  $("#email2").val(email);
 	});
 	
- $("#userid").on("keyup",function(event){	
-	 $.ajax({
-			type : "GET",
-			url : "MemberIdCheckServlet",
-			dataType : "text",
-			data : {
-				userid : $("#userid").val()
-			},
-			success : function(responseData, status, xhr) {
-			    $("#result").text(responseData);
-			},
-			error : function(xhr, status, error) {
-				console.log("error");
-			}
-		});
+ $("#userid").on("keyup",function(){	
+	$.ajax({
+		url:"idDuplicateCheck",
+		type:"get",
+		data:{
+			id:$("#userid").val(),
+		},
+		dataType:"text",
+		success:function(data, status, xhr) {
+			console.log(data);
+			$("#result").text(data);
+		},
+		error:function(xhr, status, error) {}
+	});
 });
  
- });
+});
 </script>
 <form action="memberAdd" method="post"> <!-- 수정 -->
 	*아이디:<input type="text" name="userid" id="userid"> 
-	<span id="result"></span> <br> 
-	*비밀번호:<input type="text" name="passwd" id="passwd"><br> 
+	<span id="result"></span>
+	<br> 
+	*비밀번호:<input type="text" name="passwd" id="passwd">
+	<br> 
 	비밀번호확인:<input type="text" name="passwd2" id="passwd2"> 
-	<span id="result2"></span> <br> 
-	이름:<input type="text" name="username"><br> 
+	<span id="result2"></span>
+	<br> 
+	이름:<input type="text" name="username">
+	<br> 
 	<input type="text" name="post" id="sample4_postcode" placeholder="우편번호"> 
-	<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
+	<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기">
+	<br>
 	<input type="text" name="addr1" id="sample4_roadAddress" placeholder="도로명주소">
 	<input type="text" name="addr2" id="sample4_jibunAddress" placeholder="지번주소">
 	<span id="guide" style="color: #999"></span> <br> 전화번호:<select name="phone1">

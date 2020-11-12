@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.dto.MemberDTO;
 import com.service.MemberService;
@@ -31,6 +33,18 @@ public class MemberController {
 		session.setAttribute("login", dto);
 		System.out.println(dto);
 		return "redirect:../myPage"; //주소에 해당하는 페이지를 servlet-context에 등록사용
+	}
+	
+	@RequestMapping(value = "/idDuplicateCheck", produces = "text/plain;charset=UTF-8")
+	@ResponseBody
+	public String idDuplicateCheck(@RequestParam("id") String userid) {
+		MemberDTO dto = service.myPage(userid);
+		System.out.println("idDuplicateCheck====" + userid);
+		String mesg = "아이디 사용가능";
+		if(dto != null) {
+			mesg = "아이디 중복";
+		}
+		return mesg; //메세지 전달 //리턴페이지가 아님
 	}
 	
 }
