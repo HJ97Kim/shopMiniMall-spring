@@ -27,5 +27,10 @@ public class MemberDAO {
 		MemberDTO dto = template.selectOne("MemberMapper.mypage", userid);
 		return dto;
 	}
+
+	public void memberUpdate(MemberDTO m) {
+		int n = template.update("MemberMapper.memberUpdate", m);
+		System.out.println("업데이트 성공 ? (true:1/false:0) = " + n);
+	}
 	
 }

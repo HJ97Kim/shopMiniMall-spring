@@ -24,6 +24,13 @@ public class MemberController {
 		return "main"; // main.jsp
 	}
 	
+	@RequestMapping(value = "/loginCheck/memberUpdate")
+	public String memberUpdate(MemberDTO m) {
+		System.out.println(m);
+		service.memberUpdate(m);
+		return "redirect:../loginCheck/myPage";
+	}
+	
 	@RequestMapping(value = "/loginCheck/myPage")
 	public String myPage(HttpSession session) {
 		//인터셉터에서 로그인 인증 후 페이지 이동

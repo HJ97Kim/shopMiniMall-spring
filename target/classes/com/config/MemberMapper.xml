@@ -33,7 +33,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<update id="memberUpdate" parameterType="MemberDTO">
 		update member
-		set post = #{post},
+		set username = #{username},
+		post = #{post},
 		addr1 = #{addr1},
 		addr2 = #{addr2},
 		phone1 = #{phone1},

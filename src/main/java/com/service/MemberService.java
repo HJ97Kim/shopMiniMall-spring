@@ -25,4 +25,8 @@ public class MemberService {
 		MemberDTO dto = dao.myPage(userid);
 		return dto;
 	}
+
+	public void memberUpdate(MemberDTO m) {
+		dao.memberUpdate(m);
+	}
 }

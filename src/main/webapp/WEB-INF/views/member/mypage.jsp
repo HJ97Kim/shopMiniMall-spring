@@ -3,7 +3,22 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<form action="MemberUpdateServlet" method="get">
+<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+<script>
+	$(document).ready(function () {
+		
+		$("form").on("submit", function(event) {
+			var email1=$("#email1").val();
+			var email2=$("#email2").val();
+			if(email1.length == 0 || email2.length == 0){
+				event.preventDefault();
+				alert("email 확인");
+			}
+		});
+		
+	});
+</script>
+<form action="loginCheck/memberUpdate" method="get">
 <input type="hidden" value="${login.userid}" name="userid">
 *아이디:${login.userid}<br>
 <span id="result"></span>
