@@ -14,6 +14,12 @@
 	<mvc:view-controller path="/memberForm" view-name="memberForm" /> <!-- memberForm.jsp -->
 	<mvc:view-controller path="/loginForm" view-name="loginForm" /> <!-- loginForm.jsp -->
 	<mvc:view-controller path="/myPage" view-name="mypage" /> <!-- loginForm.jsp -->
+	
+	<!-- 리소스 등록 -->
+	<mvc:resources location="/WEB-INF/views/images/" mapping="/images/**" />
+	<mvc:resources location="/WEB-INF/views/css/" mapping="/css/**" />
+	<mvc:resources location="/WEB-INF/views/js/" mapping="/js/**" />
+	<!-- 리소스 끝 -->
 
 	<!-- 인터셉터 등록시작 -->
 	<mvc:interceptors>
