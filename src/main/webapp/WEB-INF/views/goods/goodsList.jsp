@@ -24,7 +24,7 @@
 							<table style='padding:15px'>
 								<tr>
 									<td>
-										<a href="GoodsRetrieveServlet?gCode=${dto.gCode}">
+										<a href="goodsRetrieve?gCode=${dto.gCode}">
 											<img src="images/items/${dto.gImage}.gif" border="0" align="center" width="200">
 										</a>
 									</td>
@@ -35,7 +35,7 @@
 								</tr>
 								<tr>
 									<td class= "td_default" align ="center">
-										<a class= "a_black" href=""> 
+										<a class= "a_black" href="goodsRetrieve?gCode=${dto.gCode}"> 
 										${dto.gName}<br>
 										</a>
 										<font color="gray">

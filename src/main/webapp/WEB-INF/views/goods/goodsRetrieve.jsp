@@ -1,25 +1,7 @@
-<%@page import="com.dto.GoodsDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%
- 	GoodsDTO dto = (GoodsDTO)request.getAttribute("goodsRetrieve");
-	String gCode = dto.getgCode();
-	String gName = dto.getgName();
-	int gPrice = dto.getgPrice();
-	String gImage = dto.getgImage();
-%>
-<%
-	String mesg = (String)session.getAttribute("mesg");
-	if(mesg != null) {
-%>    
-<script>
-	alert('<%=mesg%>');
-</script>
-<%
-	}
-	session.removeAttribute("mesg");
-%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <script type="text/javascript" src="js/jquery-3.3.1.js"></script>
 <script type="text/javascript">
 	$(document).ready(function () {
@@ -33,7 +15,7 @@
 				alert("색상선택하세요");
 				return false;
 			}
-			$("form").attr("action", "GoodsCartServlet");
+			$("form").attr("action", "loginCheck/cartAdd"); //인터셉터 검사 후 진행
 		});
 		
 		$("#up").click(function () {
@@ -48,13 +30,22 @@
 		
 	});
 </script>
-
+<c:if test="${!empty mesg}">
+<script>
+	alert("${mesg}상품을 장바구니에 담았습니다.");
+</script>
+</c:if>
+<%
+	if(session.getAttribute("mesg") != null) {
+		session.removeAttribute("mesg");
+	}
+%>
 <form name="goodRetrieveForm" method="GET" action="#">
 	    <!-- hidden  tag생성 -->
-	    <input type="hidden" name="gImage" value="<%=gImage%>"> <input
-	    type="hidden" name="gCode" value="<%=gCode%>"> <input
-	    type="hidden" name="gName" value="<%=gName%>"> <input
-	    type="hidden" name="gPrice" value="<%=gPrice%>">
+	    <input type="hidden" name="gImage" value="${goodsRetrieve.gImage}">
+	    <input type="hidden" name="gCode" value="${goodsRetrieve.gCode}">
+	    <input type="hidden" name="gName" value="${goodsRetrieve.gName}">
+	    <input type="hidden" name="gPrice" value="${goodsRetrieve.gPrice}">
 
 	<table width="100%" cellspacing="0" cellpadding="0">
 		<tr>
@@ -79,24 +70,24 @@
 					</tr>
 
 					<tr>
-						<td rowspan="7"><img src="images/items/<%=gImage%>.gif"
+						<td rowspan="7"><img src="images/items/${goodsRetrieve.gImage}.gif"
 							border="0" align="center" width="300" /></td>
 						<td class="td_title">제품코드</td>
 						<td class="td_default" colspan="2" style='padding-left: 30px'>
-						<%=gCode %>
+						${goodsRetrieve.gCode}
 						</td>
 					</tr>
 					<tr>
 						<td class="td_title">상품명</td>
 						<td class="td_default" colspan="2" style='padding-left: 30px'>
-						<%=gName %>
+						${goodsRetrieve.gName}
 						</td>
 					</tr>
 					<tr>
 						<td class="td_title">가격</td>
 
 						<td class="td_red" colspan="2" style='padding-left: 30px'>
-						<%=gPrice %>
+						${goodsRetrieve.gPrice}
 						</td>
 					</tr>
 					<tr>
