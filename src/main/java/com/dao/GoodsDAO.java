@@ -28,4 +28,9 @@ public class GoodsDAO {
 		int n = template.insert("CartMapper.cartAdd", dto);
 		System.out.println("장바구니 담기 성공 ? (true:1/false:0) = " + n);
 	}
+	
+	public List<CartDTO> cartList(String userid) {
+		List<CartDTO> list = template.selectList("CartMapper.cartList", userid);
+		return list;
+	}
 }

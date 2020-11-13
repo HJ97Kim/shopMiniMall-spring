@@ -28,4 +28,9 @@ public class GoodsService {
 		dao.cartAdd(dto);
 	}
 
+	public List<CartDTO> cartList(String userid) {
+		List<CartDTO> list = dao.cartList(userid);
+		return list;
+	}
+
 }

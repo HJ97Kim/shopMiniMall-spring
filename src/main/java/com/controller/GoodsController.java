@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.dto.CartDTO;
 import com.dto.GoodsDTO;
@@ -48,6 +49,15 @@ public class GoodsController {
 		session.setAttribute("mesg", dto.getgCode());
 		service.cartAdd(dto); // db insert
 		return "redirect:../goodsRetrieve?gCode=" + dto.getgCode(); //리다이렉션
+	}
+	
+	@RequestMapping("/loginCheck/cartList")
+	public String cartList(RedirectAttributes attr, HttpSession session) {
+		MemberDTO dto = (MemberDTO)session.getAttribute("login");
+		String userid = dto.getUserid();
+		List<CartDTO> list = service.cartList(userid);
+		attr.addFlashAttribute("cartList", list);
+		return "redirect:../cartList"; //servlet-context에 등록
 	}
 	
 }
