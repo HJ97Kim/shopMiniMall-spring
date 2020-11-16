@@ -1,6 +1,7 @@
 package com.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -22,7 +24,7 @@ public class GoodsController {
 	@Autowired
 	GoodsService service;
 	
-	@RequestMapping("/goodsList")
+	@RequestMapping(value = "/goodsList")
 	public ModelAndView goodsList(@RequestParam("gCategory") String gCategory) {
 		if(gCategory == null) {
 			gCategory = "top";
@@ -34,14 +36,14 @@ public class GoodsController {
 		return mav;
 	}
 	
-	@RequestMapping("/goodsRetrieve") //페이지는 goodsRetrieve.jsp
+	@RequestMapping(value = "/goodsRetrieve") //페이지는 goodsRetrieve.jsp
 	@ModelAttribute("goodsRetrieve") //goodsRetrieve가 키가 됨
 	public GoodsDTO goodsRetrieve(@RequestParam("gCode") String gCode) { //리턴타입 주의
 		GoodsDTO dto = service.goodsRetrieve(gCode);
 		return dto; //request.setAttribute("goodsRetrieve", dto);
 	}
 	
-	@RequestMapping("/loginCheck/cartAdd")
+	@RequestMapping(value = "/loginCheck/cartAdd")
 	public String cartAdd(CartDTO dto, HttpSession session) { //파싱
 		MemberDTO mdto = (MemberDTO)session.getAttribute("login"); //세션에서 회원정보얻기
 		String userid = mdto.getUserid(); //회원정보에서 id를 꺼내 cartDTO에 넣어주기
@@ -51,13 +53,20 @@ public class GoodsController {
 		return "redirect:../goodsRetrieve?gCode=" + dto.getgCode(); //리다이렉션
 	}
 	
-	@RequestMapping("/loginCheck/cartList")
+	@RequestMapping(value = "/loginCheck/cartList")
 	public String cartList(RedirectAttributes attr, HttpSession session) {
 		MemberDTO dto = (MemberDTO)session.getAttribute("login");
 		String userid = dto.getUserid();
 		List<CartDTO> list = service.cartList(userid);
 		attr.addFlashAttribute("cartList", list);
 		return "redirect:../cartList"; //servlet-context에 등록
+	}
+	
+	@RequestMapping(value = "/loginCheck/cartUpdate")
+	@ResponseBody
+	public void cartUpdate(@RequestParam Map<String, String> map) {
+		System.out.println(map);
+		service.cartUpdate(map);
 	}
 	
 }

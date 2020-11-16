@@ -1,6 +1,7 @@
 package com.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,6 +32,10 @@ public class GoodsService {
 	public List<CartDTO> cartList(String userid) {
 		List<CartDTO> list = dao.cartList(userid);
 		return list;
+	}
+	
+	public void cartUpdate(Map<String, String> map) {
+		dao.cartUpdate(map);
 	}
 
 }
