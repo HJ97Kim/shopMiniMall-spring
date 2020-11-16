@@ -38,4 +38,8 @@ public class GoodsService {
 		dao.cartUpdate(map);
 	}
 
+	public void cartDel(int num) {
+		dao.cartDel(num);
+	}
+
 }

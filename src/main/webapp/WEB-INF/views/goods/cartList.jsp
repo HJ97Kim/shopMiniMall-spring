@@ -15,9 +15,24 @@
 		});
 		
 		$(".delBtn").on("click", function () {
-			var num = $(this).attr("data-xxx");
-			console.log(num);
-			location.href="CartDelServlet?num="+num;
+			var num = $(this).attr("data-num");
+			var xxx = $(this);
+			$.ajax({
+				url: "loginCheck/cartDel",
+				type: "get",
+				dataType: "text",
+				data: {
+					num: num
+				},
+				success: function(data, status, xhr) {
+					console.log("success");
+					//dom삭제
+					xxx.parents().filter("tr").remove(); //tr테그 삭제 비동기 처리
+				},
+				error: function(xhr, status, error) {
+					console.log(error);
+				}
+			}); //end ajax
 		});
 		
 		$(".updateBtn").on("click", function () {
@@ -136,9 +151,9 @@
 				${x.gPrice * x.gAmount}
 				</span></td>
 			<td><input type="button" value="주문" class="orderBtn" data-xxx="${x.num}"></td>
-			<td class="td_default" align="center" width="30"
-				style='padding-left: 10px'><input type="button" value="삭제"
-				id="xx${x.num}" class="delBtn" data-xxx="${x.num}"></td>
+			<td class="td_default" align="center" width="30" style='padding-left: 10px'>
+				<input type="button" value="삭제" id="xx${x.num}" class="delBtn" data-num="${x.num}">
+			</td>
 			<td height="10"></td>
 		</tr>
 	</c:forEach>

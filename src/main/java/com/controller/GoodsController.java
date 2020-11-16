@@ -69,4 +69,10 @@ public class GoodsController {
 		service.cartUpdate(map);
 	}
 	
+	@RequestMapping(value = "/loginCheck/cartDel")
+	@ResponseBody
+	public void cartDel(@RequestParam("num") int num) {
+		service.cartDel(num);
+	}
+	
 }

@@ -39,4 +39,9 @@ public class GoodsDAO {
 		int n = template.update("CartMapper.cartUpdate", map);
 		System.out.println("장바구니 업데이트 성공 ? (true:1/false:0) = " + n);
 	}
+
+	public void cartDel(int num) {
+		int n = template.delete("CartMapper.cartDel", num);
+		System.out.println("장바구니 삭제 성공 ? (true:1/false:0) = " + n);
+	}
 }
