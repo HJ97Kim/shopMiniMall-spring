@@ -4,6 +4,15 @@
     pageEncoding="UTF-8"%>
     <script type="text/javascript" src="js/jquery-3.3.1.js"></script>
 <script type="text/javascript">
+
+function totalSum() {
+	var totalSum = $(".totalSum");
+	var Price = 0;
+	for(var i = 0; i < totalSum.length; i++) {
+		Price += parseInt(totalSum[i].innerText);
+	}
+	$("#total").text("총합계 : " + Price);
+}
 	$(document).ready(function () {
 		
 	
@@ -28,6 +37,7 @@
 					console.log("success");
 					//dom삭제
 					xxx.parents().filter("tr").remove(); //tr테그 삭제 비동기 처리
+					totalSum();
 				},
 				error: function(xhr, status, error) {
 					console.log(error);
@@ -50,6 +60,7 @@
 				success:function(data, status, xhr) {
 					var total = parseInt(gAmount) * parseInt(gPrice);
 					$("#sum"+num).text(total);
+					totalSum();
 				},
 				error:function(xhr, status, error) {
 					
@@ -78,8 +89,12 @@
 			location.href="CartOrderConfirmServlet?num="+num;
 		})
 		
+		totalSum();
+		
+		
 		
 	});
+	
 </script>
 
 <table width="90%" cellspacing="0" cellpadding="0" border="0">
@@ -147,7 +162,7 @@
 				class="updateBtn" data-num="${x.num}" data-price="${x.gPrice}"/>
 				</td>
 			<td class="td_default" align="center" width="80"
-				style="padding-left: 5px"><span id="sum${x.num}">
+				style="padding-left: 5px"><span id="sum${x.num}" class="totalSum">
 				${x.gPrice * x.gAmount}
 				</span></td>
 			<td><input type="button" value="주문" class="orderBtn" data-xxx="${x.num}"></td>
@@ -165,8 +180,8 @@
 	</tr>
 	<tr>
 		<td height="30">
+		<span id="total"></span>
 	</tr>
-
 	<tr>
 		<td align="center" colspan="5"><a class="a_black"
 			href="javascript:orderAllConfirm(myForm)"> 전체 주문하기 </a>&nbsp;&nbsp;&nbsp;&nbsp; 
