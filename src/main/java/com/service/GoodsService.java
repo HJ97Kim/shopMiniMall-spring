@@ -1,5 +1,6 @@
 package com.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.dao.GoodsDAO;
 import com.dto.CartDTO;
 import com.dto.GoodsDTO;
+import com.dto.OrderDTO;
 
 @Service
 public class GoodsService {
@@ -40,6 +42,19 @@ public class GoodsService {
 
 	public void cartDel(int num) {
 		dao.cartDel(num);
+	}
+	
+	public void delAllCart(ArrayList<String> list) {
+		dao.delAllCart(list);
+	}
+	
+	public CartDTO orderConfirmByNum(int num) {
+		CartDTO dto = dao.orderConfirmByNum(num);
+		return dto;
+	}
+
+	public void orderDone(OrderDTO oDTO, int orderNum) {
+		dao.orderDone(oDTO, orderNum);
 	}
 
 }

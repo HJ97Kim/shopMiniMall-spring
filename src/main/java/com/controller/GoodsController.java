@@ -1,5 +1,6 @@
 package com.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -17,12 +18,28 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.dto.CartDTO;
 import com.dto.GoodsDTO;
 import com.dto.MemberDTO;
+import com.dto.OrderDTO;
 import com.service.GoodsService;
+import com.service.MemberService;
 
 @Controller
 public class GoodsController {
 	@Autowired
 	GoodsService service;
+	@Autowired
+	MemberService mService;
+	
+	@RequestMapping("/loginCheck/orderConfirm")
+	public String orderConfirm(@RequestParam("num") int num, HttpSession session, 
+			RedirectAttributes attr) {
+		MemberDTO mDTO=(MemberDTO)session.getAttribute("login");
+		String userid= mDTO.getUserid();
+		mDTO= mService.myPage(userid); //사용자 정보 가져오기 
+		CartDTO cDTO= service.orderConfirmByNum(num); //장바구니 정보가져오기 
+		attr.addFlashAttribute("mDTO", mDTO);  //request에 회원정보저장
+		attr.addFlashAttribute("cDTO", cDTO); //request에 카트정보저장	
+		return "redirect:../orderConfirm"; //servlet-context에 등록
+	}
 	
 	@RequestMapping(value = "/goodsList")
 	public ModelAndView goodsList(@RequestParam("gCategory") String gCategory) {
@@ -73,6 +90,22 @@ public class GoodsController {
 	@ResponseBody
 	public void cartDel(@RequestParam("num") int num) {
 		service.cartDel(num);
+	}
+	
+	@RequestMapping(value = "/loginCheck/delAllCart")
+	public String delAllCart(@RequestParam("check") ArrayList<String> list) {
+		System.out.println(list);
+		service.delAllCart(list);
+		return "redirect:../loginCheck/cartList";
+	}
+	
+	@RequestMapping("/loginCheck/orderDone")
+	public String orderDone(OrderDTO oDTO, int orderNum, HttpSession session, RedirectAttributes xxx) {
+		MemberDTO dto = (MemberDTO)session.getAttribute("login");
+		oDTO.setUserid(dto.getUserid());
+		service.orderDone(oDTO, orderNum);
+		xxx.addFlashAttribute("oDTO", oDTO);
+		return "redirect:../orderDone";
 	}
 	
 }

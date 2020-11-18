@@ -89,6 +89,12 @@ function totalSum() {
 			location.href="CartOrderConfirmServlet?num="+num;
 		})
 		
+		//주문하기
+		$(".orderBtn").on("click",function(){
+			var num= $(this).attr("data-num");
+			location.href="loginCheck/orderConfirm?num="+num;		
+		});
+		
 		totalSum();
 		
 		
@@ -165,7 +171,7 @@ function totalSum() {
 				style="padding-left: 5px"><span id="sum${x.num}" class="totalSum">
 				${x.gPrice * x.gAmount}
 				</span></td>
-			<td><input type="button" value="주문" class="orderBtn" data-xxx="${x.num}"></td>
+			<td><input type="button" value="주문" class="orderBtn" data-num="${x.num}"></td>
 			<td class="td_default" align="center" width="30" style='padding-left: 10px'>
 				<input type="button" value="삭제" id="xx${x.num}" class="delBtn" data-num="${x.num}">
 			</td>
@@ -183,11 +189,9 @@ function totalSum() {
 		<span id="total"></span>
 	</tr>
 	<tr>
-		<td align="center" colspan="5"><a class="a_black"
-			href="javascript:orderAllConfirm(myForm)"> 전체 주문하기 </a>&nbsp;&nbsp;&nbsp;&nbsp; 
+		<td align="center" colspan="5"><a class="a_black" href="javascript:orderAllConfirm(myForm)"> 전체 주문하기 </a>&nbsp;&nbsp;&nbsp;&nbsp; 
 			<a class="a_black" href="#" id="delAllCart"> 전체 삭제하기 </a>&nbsp;&nbsp;&nbsp;&nbsp;
-			<a class="a_black" href="#" id="delAllCart2"> 전체 삭제하기2 </a>&nbsp;&nbsp;&nbsp;&nbsp;
-			<a class="a_black" href="index.jsp"> 계속 쇼핑하기 </a>&nbsp;&nbsp;&nbsp;&nbsp;
+			<a class="a_black" href="goodsList?gCategory=top"> 계속 쇼핑하기 </a>&nbsp;&nbsp;&nbsp;&nbsp;
 		</td>
 	</tr>
 	<tr>
